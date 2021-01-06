@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 
+
 using namespace std;
 
 
@@ -19,7 +20,8 @@ void Order();
 void displayData();
 void adminPanel();
 bool cariData(int bookID);
-void hapusData(int bookID);
+int hapusData(int bookID);
+void updateData(int bookID);
 
 
 int main() {
@@ -31,12 +33,12 @@ int main() {
 	{
 		MenuUtama();
 		cout << "Menu\n";
-		cout << "[1] Pesan\n";
-		cout << "[2] Cek Fasilitas\n";
-		cout << "[3] Cek Pesanan\n";
-		cout << "[4] Admin Panel\n";
-		cout << "[5] Keluar\n";
-		cout << "Masukan Pilihan [1-5]: ";
+		cout << (char)192 << "[1] Pesan\n";
+		cout << (char)192 << "[2] Cek Fasilitas\n";
+		cout << (char)192 << "[3] Cek Pesanan\n";
+		cout << (char)192 << "[4] Admin Panel\n";
+		cout << (char)192 << "[5] Keluar\n";
+		cout << (char)192 << "Masukan Pilihan [1-5]: ";
 		cin >> pilih;
 		switch (pilih)
 		{
@@ -82,10 +84,10 @@ int main() {
 
 void MenuUtama() {
 	system("cls");
-	cout << "======================================================================\n";
-	cout << "                            Hotel Melati                              \n";
-	cout << "         Jl. Prawirotaman, Kec. Mergangsan, Kota Yogyakarta.          \n\n";
-	cout << "======================================================================\n";
+	cout << (char)201 << "======================================================================" << (char)187 << endl;
+	cout << (char)186 << "                            Hotel Melati                              " << (char)186 << endl;
+	cout << (char)186 << "         Jl. Prawirotaman, Kec. Mergangsan, Kota Yogyakarta.          " << (char)186 << endl;
+	cout << (char)200 << "======================================================================" << (char)188 << endl;
 	cout << "Kode\t\t\tTipe Kamar\t\t\tHarga(harian)\n";
 	cout << "1\t\t\tStandart Room\t\t\t100000\n";
 	cout << "2\t\t\tDeluxe Room\t\t\t150000\n";
@@ -97,22 +99,28 @@ void Fasilitas(int kode) {
 	switch (kode)
 	{
 	case 1:
-		cout << "\nTipe kamar standar\n";
-		cout << "Tipe kasur\tBreakfast\tUkuran kamar\tJumlah tamu\tFasilitas Tambahan\n";
-		cout << "Single Bed\tTidak\t\t20m\t\t2\t\t - \n";
-		cout << "Fasilitas semua kamar: TV, AC, Private Bath Room, Wellcome Drink, WiFi dengan kecepatan 150 Mbps" << endl;
+		cout << (char)201 << "================================================================================================" << (char)187 << endl;
+		cout << " Tipe kamar standar\n";
+		cout << " Tipe kasur\tBreakfast\tUkuran kamar\tJumlah tamu\tFasilitas Tambahan\n";
+		cout << " Single Bed\tTidak\t\t20m\t\t2\t\t - \n";
+		cout << " Fasilitas semua kamar: TV, AC, Private Bath Room, Wellcome Drink, WiFi dengan kecepatan 150 Mbps" << endl;
+		cout << (char)200 << "================================================================================================" << (char)188 << endl;
 		break;
 	case 2:
-		cout << "\nTipe kamar deluxe\n";
-		cout << "Tipe kasur\tBreakfast\tUkuran kamar\tJumlah tamu\tFasilitas Tambahan\n";
-		cout << "Double Bed\tYa\t\t25m\t\t2\t\tBalkon \n";
-		cout << "Fasilitas semua kamar: TV, AC, Private Bath Room, Wellcome Drink, WiFi dengan kecepatan 150 Mbps" << endl;
+		cout << (char)201 << "================================================================================================" << (char)187 << endl;
+		cout << " Tipe kamar deluxe\n";
+		cout << " Tipe kasur\tBreakfast\tUkuran kamar\tJumlah tamu\tFasilitas Tambahan\n";
+		cout << " Double Bed\tYa\t\t25m\t\t2\t\tBalkon \n";
+		cout << " Fasilitas semua kamar: TV, AC, Private Bath Room, Wellcome Drink, WiFi dengan kecepatan 150 Mbps" << endl;
+		cout << (char)200 << "================================================================================================" << (char)188 << endl;
 		break;
 	case 3:
-		cout << "\nTipe kamar suite\n";
-		cout << "Tipe kasur\tBreakfast\tUkuran kamar\tJumlah tamu\tFasilitas Tambahan\n";
-		cout << "Double Bed\tYa\t\t25m\t\t2\t\tPrivate Pool \n";
-		cout << "Fasilitas semua kamar: TV, AC, Private Bath Room, Wellcome Drink, WiFi dengan kecepatan 150 Mbps" << endl;
+		cout << (char)201 << "================================================================================================" << (char)187 << endl;
+		cout << " Tipe kamar suite\n";
+		cout << " Tipe kasur\tBreakfast\tUkuran kamar\tJumlah tamu\tFasilitas Tambahan\n";
+		cout << " Double Bed\tYa\t\t25m\t\t2\t\tPrivate Pool \n";
+		cout << " Fasilitas semua kamar: TV, AC, Private Bath Room, Wellcome Drink, WiFi dengan kecepatan 150 Mbps" << endl;
+		cout << (char)200 << "================================================================================================" << (char)188 << endl;
 		break;
 	default:
 		cout << "Pilihan tidak tersedia!\n";
@@ -252,19 +260,24 @@ void Order() {
 void displayData() {
 	ifstream readData;
 	dataBase db;
-	int pendapatan = 0;
+	int pendapatan = 0, i = 0;
+
 	readData.open("database.dat", ios::binary);
-	cout << "kode booking\tnama\t\t\tnomor\t\tCheckIn\t\tCheckOut\tTotal" << endl;
+	system("cls");
+	cout << endl;
+	cout << (char)201 <<"===================================DATABASE HOTEL MELATI========================================" << (char)187 << endl;
+	cout << " kode booking\tnama\t\t\tnomor\t\tCheckIn\t\tCheckOut\tTotal" << endl;
 	while (readData.read((char*)&db, sizeof(db)))
 	{
 
-		cout << db.InvoiceNO << "\t\t" << db.nama << "\t\t" << db.nomor << "\t" << db.ci << "\t" << db.co << "\t" << db.hargaAkhir << endl;
+		cout << ' ' << db.InvoiceNO << "\t\t" << db.nama << "\t\t" << db.nomor << "\t" << db.ci << "\t" << db.co << "\t" << db.hargaAkhir << endl;
 		pendapatan += db.hargaAkhir;
+		i++;
 	}
 	readData.close();
-	cout << "\nTotal pendapatan = " << pendapatan << endl;
-	//system("pause");
-
+	cout << endl;
+	cout << " Total pendapatan = " << pendapatan << "\t" << "Total pesanan = " << i << endl;
+	cout << (char)200 <<"================================================================================================" << (char)188 << endl;
 }
 
 void adminPanel() {
@@ -280,13 +293,15 @@ void adminPanel() {
 		do
 		{
 			system("cls");
-			cout << "Sukses login sebagai admin!" << endl;
-			cout << "Menu admin" << endl;
-			cout << "[1] Lihat semua data" << endl;
-			cout << "[2] Update data" << endl;
-			cout << "[3] Cari data" << endl;
-			cout << "[4] Hapus data" << endl;
-			cout << "[5] Keluar" << endl;
+			cout << (char)201 << "====================================================================" << (char)187 << endl;
+			cout << (char)186 << "                      PANEL ADMIN HOTEL MELATI                      " << (char)186 << endl;
+			cout << (char)200 << "====================================================================" << (char)188 << endl;
+			cout << "Menu" << endl;
+			cout << (char)192 << "[1] Lihat semua data" << endl;
+			cout << (char)192 << "[2] Update data" << endl;
+			cout << (char)192 << "[3] Cari data" << endl;
+			cout << (char)192 << "[4] Hapus data" << endl;
+			cout << (char)192 << "[5] Keluar" << endl;
 			cout << "Masukan pilihan [1-5]: ";
 			cin >> pilih;
 			switch (pilih)
@@ -295,14 +310,18 @@ void adminPanel() {
 				displayData();
 				break;
 			case 2:
-				cout << "Akan segera tiba" << endl;
+				cout << "Hanya customer detail yang dapat diupdate!";
+				cout << "Masukan kode booking yang akan diupdate: ";
+				cin >> bookID;
+				updateData(bookID);
 				break;
 			case 3:
 				cout << "Masukan kode booking yang akan dicari: ";
 				cin >> bookID;
 				if (cariData(bookID) == 0)
 				{
-					cout << "Data dengan kode " << bookID << " tidak ditemukan!" << endl;
+					cout << endl;
+					cout << "Kode booking " << bookID << " tidak terdapat dalam database!" << endl;
 				}
 				break;
 			case 4:
@@ -339,8 +358,11 @@ bool cariData(int bookID) {
 	{
 		if (db.InvoiceNO == bookID)
 		{
-			cout << "kode booking\tnama\t\tnomor\n";
-			cout << db.InvoiceNO << "\t\t" << db.nama << "\t\t" << db.nomor << "\n";
+			cout << endl;
+			cout << (char)201 << "========================================HOTEL MELATI============================================" << (char)187 << endl;
+			cout << " kode booking\tnama\t\t\tnomor\t\tCheckIn\t\tCheckOut\tTotal" << endl;
+			cout << ' ' << db.InvoiceNO << "\t\t" << db.nama << "\t\t" << db.nomor << "\t" << db.ci << "\t" << db.co << "\t" << db.hargaAkhir << endl;
+			cout << (char)200 << "================================================================================================" << (char)188 << endl;
 			cek = 1;
 		}
 
@@ -349,10 +371,11 @@ bool cariData(int bookID) {
 	return cek;
 }
 
-void hapusData(int bookID) {
+int hapusData(int bookID) {
 	ifstream readData;
 	ofstream writeData;
 	dataBase db;
+	int rm,rn = 0;
 
 	if (cariData(bookID) == 1)
 	{
@@ -369,16 +392,77 @@ void hapusData(int bookID) {
 		}
 
 		readData.close();
-		bool rm = remove("database.dat");
-		bool rn = rename("temp.dat", "database.dat");
-		if (rm == 0 && rn == 0)
+		rm = remove("database.dat");
+		rn = rename("temp.dat", "database.dat");
+		if (rm != 0 && rn != 0)
 		{
-			cout << "Data sukses dihapus!" << endl;
+			cout << "\nAda masalah pada database!" << endl;
+		}
+		else
+		{
+			cout << "\nData sukses dihapus!" << endl;
+			rn += 1;
 		}
 	}
-		
+	else
+	{
+		cout << "\nData gagal dihapus!" << endl;
+		cout << "Kode booking " << bookID << " tidak terdapat dalam database!" << endl;
+	}
+	
+	return rn;
 }
 
 void updateData(int bookID) {
+	ifstream readData;
+	ofstream writeData;
+	dataBase db;
 
+
+	if (cariData(bookID) == 1) {
+		readData.open("database.dat", ios::binary);
+		while (readData.read((char*)&db, sizeof(db)))
+		{
+
+			if (db.InvoiceNO == bookID)
+			{
+				writeData.open("temp.dat", ios::binary | ios::app);
+				db.InvoiceNO = bookID;
+				db.ci = db.ci;
+				db.co = db.co;
+				db.hargaAkhir = db.hargaAkhir;
+				cin.ignore();
+				cout << "Nama: ";
+				cin.getline(db.nama, 100);
+				cout << "Nomor: ";
+				cin >> db.nomor;
+				cout << "Email: ";
+				cin >> db.email;
+				writeData.write((char*)&db, sizeof(db));
+				writeData.close();
+			}
+			else
+			{
+				writeData.open("temp.dat", ios::binary | ios::app);
+				writeData.write((char*)&db, sizeof(db));
+				writeData.close();
+			}	
+		}
+		readData.close();
+		bool rm = remove("database.dat");
+		bool rn = rename("temp.dat", "database.dat");
+		if (rn == 0 && rm == 0)
+		{
+			cout << "Data sukses diupdate!" << endl;
+		}
+		else
+		{
+			cout << "Data gagal diupdate!" << endl;
+		}	
+	}
+	else
+	{
+		cout << endl;
+		cout << "Kode booking " << bookID << " tidak terdapat dalam database" << endl;
+	}
 }
