@@ -20,7 +20,7 @@ void Order();
 void displayData();
 void adminPanel();
 bool cariData(int bookID);
-int hapusData(int bookID);
+bool hapusData(int bookID);
 void updateData(int bookID);
 
 
@@ -371,11 +371,12 @@ bool cariData(int bookID) {
 	return cek;
 }
 
-int hapusData(int bookID) {
+bool hapusData(int bookID) {
 	ifstream readData;
 	ofstream writeData;
 	dataBase db;
-	int rm,rn = 0;
+	int rm, rn;
+	bool cek = false;
 
 	if (cariData(bookID) == 1)
 	{
@@ -401,7 +402,7 @@ int hapusData(int bookID) {
 		else
 		{
 			cout << "\nData sukses dihapus!" << endl;
-			rn += 1;
+			cek = true;
 		}
 	}
 	else
@@ -410,7 +411,7 @@ int hapusData(int bookID) {
 		cout << "Kode booking " << bookID << " tidak terdapat dalam database!" << endl;
 	}
 	
-	return rn;
+	return cek;
 }
 
 void updateData(int bookID) {
